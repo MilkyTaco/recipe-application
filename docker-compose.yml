@@ -16,7 +16,7 @@ services:
     command: "npm run serve"
 
   #PHP Service
-  app:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -34,7 +34,7 @@ services:
       - app-network
 
   #Nginx Service
-  webserver:
+  nginx:
     image: nginx:alpine
     container_name: webserver
     restart: unless-stopped
