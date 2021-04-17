@@ -12,11 +12,11 @@ class User extends Model
 
     public function recipe()
     {
-        return $this->hasMany(Recipe::class, 'recipe_id', 'id');
+        return $this->hasMany(Recipe::class, 'id', 'user_id');
     }
 
     public function bookmark()
     {
-        return $this->hasMany(Bookmark::class, 'bookmark_id', 'id');
+        return $this->hasMany(Bookmark::class, 'id', 'user_id');
     }
 }
