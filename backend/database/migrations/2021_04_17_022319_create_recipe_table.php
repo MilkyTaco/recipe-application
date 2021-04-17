@@ -13,13 +13,15 @@ class CreateRecipeTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipe', function (Blueprint $table){
+        Schema::create('recipe', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('ingredients_id')->constrained('ingredients');
             $table->foreignId('steps_id')->constrained('steps');
             $table->string('title');
             $table->string('description');
             $table->integer('total_duration');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 
