@@ -13,9 +13,12 @@ class CreateIngredientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingredients', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('ingredients', function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->decimal('amount', 5, 2);
+            $table->integer('total_duration');
+            $table->string('measuring_instrument');
         });
     }
 
