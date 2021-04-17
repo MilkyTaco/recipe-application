@@ -15,10 +15,9 @@ class CreateUserTable extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('recipe_id')->constrained('recipe');
-            $table->foreignId('bookmark_id')->constrained('bookmark');
             $table->rememberToken();
         });
     }
