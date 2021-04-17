@@ -15,7 +15,7 @@ class CreateRecipeTable extends Migration
     {
         Schema::create('recipe', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('ingredients_id')->constrained('ingredients');
             $table->foreignId('steps_id')->constrained('steps');
             $table->string('title');

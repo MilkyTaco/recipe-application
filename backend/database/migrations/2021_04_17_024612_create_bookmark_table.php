@@ -15,7 +15,7 @@ class CreateBookmarkTable extends Migration
     {
         Schema::create('bookmark', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('recipe_link');
         });
     }
