@@ -13,7 +13,7 @@ class CreateStepsTable extends Migration
      */
     public function up()
     {
-        Schema::create('steps_table', function (Blueprint $table) {
+        Schema::create('steps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('description');
             $table->integer('step_count');
@@ -28,6 +28,6 @@ class CreateStepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('steps_table');
+        Schema::dropIfExists('steps');
     }
 }
