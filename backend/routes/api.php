@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('user')->group(function (){
     Route::post('signup', [UserController::class, "store"]);
-    Route::get('show', [UserController::class, "show"]);
+    Route::post('login', [UserController::class, "login"]);
 });
