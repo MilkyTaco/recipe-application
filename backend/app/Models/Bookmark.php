@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Bookmark extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'bookmark_id');
+    }
 }

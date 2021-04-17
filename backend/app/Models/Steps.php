@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Steps extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
+    public function recipe()
+    {
+        return $this->belongsTo(Recipe::class, 'recipe_id', 'id');
+    }
 }
