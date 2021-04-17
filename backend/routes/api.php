@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('cors')->get('/', function (Request $request) {
-    return ["message" => "hello world"];
+Route::prefix('user')->group(function (){
+    Route::post('signup', [UserController::class, "store"]);
+    Route::get('show', [UserController::class, "show"]);
 });

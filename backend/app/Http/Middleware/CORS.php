@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 
 class CORS
