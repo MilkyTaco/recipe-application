@@ -24,4 +24,9 @@ class Recipe extends Model
     {
         return $this->hasMany(Steps::class, 'steps_id', 'id');
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Categories::class, 'categories_id', 'id');
+    }
 }
