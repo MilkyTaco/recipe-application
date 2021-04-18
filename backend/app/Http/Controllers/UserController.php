@@ -47,7 +47,7 @@ class UserController extends Controller
         try {
             if (Hash::check($request->password, $user->password)) {
                 return ["success" => [
-                    "message" => "user saved successfully!",
+                    "message" => "user successfully logged in!",
                     "data" => [
                         "name" => $user->name,
                         "email" => $user->email,
