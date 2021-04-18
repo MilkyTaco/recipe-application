@@ -25,7 +25,11 @@ class UserController extends Controller
             return [
                 "success" => [
                     "message" => "user saved successfully!",
-                    "data" => $user->id
+                    "data" => [
+                        "name" => $user->name,
+                        "email" => $user->email,
+                        "id" => HASH::make($user->id)
+                    ]
                 ]
             ];
         } catch (Throwable $e) {
@@ -47,7 +51,7 @@ class UserController extends Controller
                     "data" => [
                         "name" => $user->name,
                         "email" => $user->email,
-                        "id" => $user->id
+                        "id" => HASH::make($user->id)
                     ]
                 ]];
             }
