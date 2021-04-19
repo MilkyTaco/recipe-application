@@ -24,9 +24,10 @@ class ProceduresRequest extends FormRequest
     public function rules()
     {
         return [
-            'step_count' => ['bail', 'integer', 'required'],
-            'description' => ['required', 'max:255'],
-            'duration' => ['integer', 'required'],
+            '*.recipe_id' => ['bail', 'integer', 'required'],
+            '*.step_count' => ['bail', 'integer', 'required'],
+            '*.description' => ['required', 'max:255'],
+            '*.duration' => ['integer', 'required'],
         ];
     }
 }

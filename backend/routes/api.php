@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProceduresController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,8 @@ Route::prefix('user')->group(function () {
 Route::middleware("jwt.verify")->prefix('recipe')->group(function () {
     Route::post('create', [RecipeController::class, "store"]);
     Route::get('show', [RecipeController::class, "show"]);
+});
+
+Route::middleware("jwt.verify")->prefix('procedures')->group(function () {
+    Route::post('create', [ProceduresController::class, "store"]);
 });
