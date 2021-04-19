@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -23,11 +22,7 @@ class JwtMiddleware extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response([
-                    "error" => ["message" => 'user_not_found']
-                ], 404);
-            }
+            $user = JWTAuth::parseToken()->authenticate();
         } catch (TokenExpiredException $e) {
             return response([
                 "error" => ["message" => 'token expired']
@@ -41,7 +36,7 @@ class JwtMiddleware extends BaseMiddleware
                 "error" => ["message" => 'token is missing']
             ], $e->getCode());
         }
-        
+
         return $next($request);
     }
 }

@@ -53,18 +53,6 @@ class UserController extends Controller
 
     public function info()
     {
-        try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response([
-                    "error" => ["message" => 'user_not_found']
-                ], 404);
-            }
-        } catch (Throwable $e) {
-            return response([
-                "error" => ["message" => 'something went wrong please try again.']
-            ], 404);
-        }
-
-        return $user;
+        return JWTAuth::parseToken()->authenticate();
     }
 }
