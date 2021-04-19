@@ -20,9 +20,9 @@ class Recipe extends Model
         return $this->hasMany(Ingredients::class, 'id', 'recipe_id');
     }
 
-    public function steps()
+    public function procedures()
     {
-        return $this->hasMany(Steps::class, 'id', 'recipe_id');
+        return $this->hasMany(Procedures::class, 'id', 'recipe_id');
     }
 
     public function categories()
