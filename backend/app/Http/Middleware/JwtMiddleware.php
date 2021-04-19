@@ -1,35 +1,47 @@
 <?php
 
-    namespace App\Http\Middleware;
+namespace App\Http\Middleware;
 
-    use Closure;
-    use Exception;
-    use Tymon\JWTAuth\Facades\JWTAuth;
-    use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Closure;
+use Exception;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
-    class JwtMiddleware extends BaseMiddleware
+class JwtMiddleware extends BaseMiddleware
+{
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
     {
-
-        /**
-         * Handle an incoming request.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @param  \Closure  $next
-         * @return mixed
-         */
-        public function handle($request, Closure $next)
-        {
-            try {
-                $user = JWTAuth::parseToken()->authenticate();
-            } catch (Exception $e) {
-                if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                    return response()->json(['status' => 'Token is Invalid']);
-                }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                    return response()->json(['status' => 'Token is Expired']);
-                }else{
-                    return response()->json(['status' => 'Authorization Token not found']);
-                }
+        try {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response([
+                    "error" => ["message" => 'user_not_found']
+                ], 404);
             }
-            return $next($request);
+        } catch (TokenExpiredException $e) {
+            return response([
+                "error" => ["message" => 'token expired']
+            ], $e->getCode());
+        } catch (TokenInvalidException $e) {
+            return response([
+                "error" => ["message" => 'invalid token']
+            ], $e->getCode());
+        } catch (JWTException $e) {
+            return response([
+                "error" => ["message" => 'token is missing']
+            ], $e->getCode());
         }
+        
+        return $next($request);
     }
+}

@@ -6,7 +6,6 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Throwable;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -21,53 +20,53 @@ class UserController extends Controller
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+                return response([
+                    "errors" =>
+                    ["message" => "Invalid Credentials"]
+                ], 500);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response([
+                "errors" =>
+                ["message" => "Could not create token, please try again."]
+            ], 500);
         }
 
-        return response()->json(compact('token'));
+        return (compact('token'));
     }
 
     public function store(UserRequest $request)
     {
         $request->validated();
-        
+
         try {
             $user = User::create([
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
             ]);
-            
+
             $token = JWTAuth::fromUser($user);
-    
-            return response()->json(compact('user', 'token'), 201);
-        }
-        catch(Throwable $e) {
+            return response(compact('user', 'token'), 201);
+        } catch (Throwable $e) {
             return response(["error" => ["message" => $e]], 500);
         }
     }
 
-    public function getAuthenticatedUser()
+    public function info()
     {
         try {
-
             if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
+                return response([
+                    "error" => ["message" => 'user_not_found']
+                ], 404);
             }
-        } catch (TokenExpiredException $e) {
-
-            return response()->json(['token_expired'], $e->getCode());
-        } catch (TokenInvalidException $e) {
-
-            return response()->json(['token_invalid'], $e->getCode());
-        } catch (JWTException $e) {
-
-            return response()->json(['token_absent'], $e->getCode());
+        } catch (Throwable $e) {
+            return response([
+                "error" => ["message" => 'something went wrong please try again.']
+            ], 404);
         }
 
-        return response()->json(compact('user'));
+        return $user;
     }
 }

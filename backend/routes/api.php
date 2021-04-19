@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('user')->group(function () {
-    Route::post('login', [UserController::class, "login"])->middleware('jwt.verify');
+    Route::post('login', [UserController::class, "login"]);
     Route::post('signup', [UserController::class, "store"]);
+    Route::get('profile', [UserController::class, "info"])->middleware("jwt.verify");
 });
