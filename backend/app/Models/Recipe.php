@@ -17,16 +17,16 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->hasMany(Ingredients::class, 'ingredients_id', 'id');
+        return $this->hasMany(Ingredients::class, 'id', 'recipe_id');
     }
 
     public function steps()
     {
-        return $this->hasMany(Steps::class, 'steps_id', 'id');
+        return $this->hasMany(Steps::class, 'id', 'recipe_id');
     }
 
     public function categories()
     {
-        return $this->hasMany(Categories::class, 'categories_id', 'id');
+        return $this->hasMany(Categories::class, 'id', 'recipe_id');
     }
 }
