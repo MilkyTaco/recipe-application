@@ -24,9 +24,9 @@ class IngredientsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['bail', 'required', 'max:255'],
-            'amount' => ['between:0,99.99', 'required'],
-            'measuring_instrument' => ['bail', 'required', 'max:255'],
+            '*.name' => ['bail', 'required', 'max:255'],
+            '*.amount' => ['between:0,99.99', 'required'],
+            '*.measuring_instrument' => ['bail', 'required', 'max:255'],
         ];
     }
 }
