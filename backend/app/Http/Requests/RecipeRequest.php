@@ -25,12 +25,8 @@ class RecipeRequest extends FormRequest
     {
         return [
             'title' => ['bail', 'required', 'max:255'],
-            'user_id' => ['integer', 'required'],
-            'ingredients_id' => ['integer', 'required'],
-            'steps_id' => ['integer', 'required'],
-            'categories_id' => ['integer', 'required'],
-            'description' => ['bail', 'required', 'max:255'],
-            'total_duration' => ['integer', 'required']
+            'description' => ['max:255'],
+            'total_duration' => ['integer']
         ];
     }
 }
