@@ -12,6 +12,6 @@ class Ingredients extends Model
 
     public function recipe()
     {
-        return $this->belongsTo(Recipe::class, 'recipe_id', 'id');
+        return $this->belongsTo(Recipe::class, 'id', 'recipe_id');
     }
 }
