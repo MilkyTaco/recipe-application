@@ -2,62 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class UserController extends Controller
 {
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 400);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        return response()->json(compact('token'));
+    }
+
     public function store(UserRequest $request)
     {
         $request->validated();
-        $req = json_decode(json_encode($request->input()));
-
-        $user = new User();
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->password = Hash::make($req->password);
-
+        
         try {
-            $user->save();
-            return [
-                "success" => [
-                    "message" => "user saved successfully!",
-                    "data" => [
-                        "name" => $user->name,
-                        "email" => $user->email,
-                        "id" => HASH::make($user->id)
-                    ]
-                ]
-            ];
-        } catch (Throwable $e) {
-            return response(["errors" => ["message" => "unresolved"]], 500);
+            $user = User::create([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->get('password')),
+            ]);
+            
+            $token = JWTAuth::fromUser($user);
+    
+            return response()->json(compact('user', 'token'), 201);
+        }
+        catch(Throwable $e) {
+            return response(["error" => ["message" => $e]], 500);
         }
     }
 
-    public function login(Request $request)
+    public function getAuthenticatedUser()
     {
-        $req = json_decode(json_encode($request->input()));
-
-        $user = User::where('email', $req->email)
-            ->get()->first();
-
         try {
-            if (Hash::check($request->password, $user->password)) {
-                return ["success" => [
-                    "message" => "user successfully logged in!",
-                    "data" => [
-                        "name" => $user->name,
-                        "email" => $user->email,
-                        "id" => HASH::make($user->id)
-                    ]
-                ]];
+
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
             }
-            return response(["errors" => ["message" => "invalid password"]], 500);
-        } catch (Throwable $e) {
-            return response(["errors" => ["message" => "uncaught error"]], 500);
+        } catch (TokenExpiredException $e) {
+
+            return response()->json(['token_expired'], $e->getCode());
+        } catch (TokenInvalidException $e) {
+
+            return response()->json(['token_invalid'], $e->getCode());
+        } catch (JWTException $e) {
+
+            return response()->json(['token_absent'], $e->getCode());
         }
+
+        return response()->json(compact('user'));
     }
 }
