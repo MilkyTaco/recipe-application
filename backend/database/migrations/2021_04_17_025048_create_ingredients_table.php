@@ -18,7 +18,6 @@ class CreateIngredientsTable extends Migration
             $table->foreignId('recipe_id')->constrained('recipes');
             $table->string('name');
             $table->decimal('amount', 5, 2);
-            $table->integer('total_duration');
             $table->string('measuring_instrument');
         });
     }
