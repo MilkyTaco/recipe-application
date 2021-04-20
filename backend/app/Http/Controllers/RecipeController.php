@@ -37,7 +37,7 @@ class RecipeController extends Controller
                 ->with('procedures', 'ingredients')
                 ->get();
         } catch (Throwable $e) {
-            return response(["error" => ["message" => $e]], 500);
+            return [];
         }
     }
 }
