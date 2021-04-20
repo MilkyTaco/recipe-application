@@ -25,7 +25,7 @@ class RecipeRequest extends FormRequest
     {
         return [
             'title' => ['bail', 'required', 'max:255'],
-            'description' => ['max:255']
+            'description' => ['max:255', 'nullable']
         ];
     }
 }

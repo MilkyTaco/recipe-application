@@ -25,6 +25,8 @@ Route::prefix('user')->group(function () {
 
 Route::middleware("jwt.verify")->prefix('recipe')->group(function () {
     Route::post('create', [RecipeController::class, "store"]);
+    Route::delete('delete/id={id}', [RecipeController::class, "destroy"]);
+    Route::put('update', [RecipeController::class, "update"]);
     Route::get('show', [RecipeController::class, "show"]);
 });
 
