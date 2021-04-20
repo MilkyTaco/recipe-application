@@ -9,7 +9,9 @@ class Ingredients extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
+    protected $hidden = [
+        'recipe_id',
+    ];
     public function recipe()
     {
         return $this->belongsTo(Recipe::class, 'id', 'recipe_id');

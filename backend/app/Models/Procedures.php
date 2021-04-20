@@ -9,6 +9,9 @@ class Procedures extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $hidden = [
+        'recipe_id',
+    ];
 
     public function recipe()
     {
