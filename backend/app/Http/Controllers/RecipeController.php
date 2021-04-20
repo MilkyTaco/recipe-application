@@ -19,7 +19,6 @@ class RecipeController extends Controller
         $recipe->user_id = $user->id;
         $recipe->title = $req->title;
         $recipe->description = $req->description;
-        $recipe->total_duration = $req->total_duration;
 
         try {
             $recipe->save();
@@ -35,7 +34,9 @@ class RecipeController extends Controller
             $user = JWTAuth::parseToken()->authenticate();
             return Recipe::find($user->id, 'user_id')
                 ->with('procedures', 'ingredients')
-                ->get();
+                ->get()
+                ->makeHidden(['user_id', 'updated_at']);
+
         } catch (Throwable $e) {
             return [];
         }

@@ -11,11 +11,11 @@ class IngredientsController extends Controller
     public function store(IngredientsRequest $request)
     {
         $request->validated();
-        if (empty($request->input))
+        if (empty($request->input()))
         return response([
             "error" => ["message" => "empty request"]
         ], 500);
-        
+
         try {
             Ingredients::insert($request->input());
             return ["success" => ["message" => "ingredients added"]];

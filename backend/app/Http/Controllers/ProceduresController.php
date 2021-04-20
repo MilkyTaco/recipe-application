@@ -11,12 +11,11 @@ class ProceduresController extends Controller
     public function store(ProceduresRequest $request)
     {
         $request->validated();
-        if (empty($request->input))
+        if (empty($request->input()))
             return response([
                 "error" => ["message" => "empty request"]
             ], 500);
             
-        return $request->input();
         try {
             Procedures::insert($request->input());
             return ["success" => ["message" => "procedures added"]];

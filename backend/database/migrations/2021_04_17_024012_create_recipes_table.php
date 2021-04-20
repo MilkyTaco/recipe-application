@@ -18,7 +18,6 @@ class CreateRecipesTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->string('description');
-            $table->integer('total_duration');
             $table->date('created_at');
             $table->date('updated_at');
         });
