@@ -10,9 +10,9 @@ class Recipe extends Model
     use HasFactory;
     public $timestamps = true;
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function ingredients()
