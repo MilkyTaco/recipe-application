@@ -25,16 +25,16 @@ class JwtMiddleware extends BaseMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (TokenExpiredException $e) {
             return response([
-                "error" => ["message" => 'token expired']
-            ], $e->getCode());
+                "error" => ["message" => $e->getMessage()]
+            ], 500);
         } catch (TokenInvalidException $e) {
             return response([
-                "error" => ["message" => 'invalid token']
-            ], $e->getCode());
+                "error" => ["message" => $e->getMessage()]
+            ], 500);
         } catch (JWTException $e) {
             return response([
-                "error" => ["message" => 'token is missing']
-            ], $e->getCode());
+                "error" => ["message" => $e->getMessage()]
+            ], 500);
         }
 
         return $next($request);
