@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\ProceduresController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
@@ -29,4 +30,8 @@ Route::middleware("jwt.verify")->prefix('recipe')->group(function () {
 
 Route::middleware("jwt.verify")->prefix('procedures')->group(function () {
     Route::post('create', [ProceduresController::class, "store"]);
+});
+
+Route::middleware("jwt.verify")->prefix('ingredients')->group(function () {
+    Route::post('create', [IngredientsController::class, "store"]);
 });
