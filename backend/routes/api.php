@@ -39,4 +39,5 @@ Route::middleware("jwt.verify")->prefix('procedures')->group(function () {
 Route::middleware("jwt.verify")->prefix('ingredients')->group(function () {
     Route::post('create', [IngredientsController::class, "store"]);
     Route::delete('delete/id={id}&recipe_id={recipe_id}', [IngredientsController::class, "destroy"]);
+    Route::put('update/recipe_id={recipe_id}', [IngredientsController::class, "update"]);
 });
