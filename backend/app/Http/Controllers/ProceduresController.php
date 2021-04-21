@@ -35,8 +35,8 @@ class ProceduresController extends Controller
                 ->get()
                 ->first();
 
-            Procedures::find($id)
-                ->where('recipe_id', '=', $recipe->id)
+            Procedures::where('recipe_id', '=', $recipe->id)
+                ->where('id', '=', $id)
                 ->delete();
 
             return ["success" => ["message" => "procedure deleted"]];

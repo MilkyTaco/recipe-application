@@ -35,8 +35,8 @@ class IngredientsController extends Controller
                 ->get()
                 ->first();
 
-            Ingredients::find($id)
-                ->where('recipe_id', '=', $recipe->id)
+            Ingredients::where('recipe_id', '=', $recipe->id)
+                ->where('id', '=', $id)
                 ->delete();
 
             return ["success" => ["message" => "ingredient deleted"]];
