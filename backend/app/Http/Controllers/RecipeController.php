@@ -43,6 +43,17 @@ class RecipeController extends Controller
         }
     }
 
+    public function showAll()
+    {
+        try {
+            return Recipe::with('users', 'procedures', 'ingredients')
+                ->get()
+                ->makeHidden(['user_id', 'updated_at']);
+        } catch (Throwable $e) {
+            return response(["error" => ["message" => $e]], 500);
+        }
+    }
+
     public function destroy($id)
     {
         try {
