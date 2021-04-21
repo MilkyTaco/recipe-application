@@ -35,7 +35,7 @@ class RecipeController extends Controller
         try {
             $user = JWTAuth::parseToken()->authenticate();
             return Recipe::where('user_id', '=', $user->id)
-                ->with('procedures', 'ingredients')
+                ->with('users', 'procedures', 'ingredients')
                 ->get()
                 ->makeHidden(['user_id', 'updated_at']);
         } catch (Throwable $e) {
