@@ -22,7 +22,7 @@ class ProceduresController extends Controller
             Procedures::insert($request->input());
             return ["success" => ["message" => "procedures added"]];
         } catch (Throwable $e) {
-            return response(["error" => ["message" => $e]], 500);
+            return response(["error" => ["message" => strval($e)]], 500);
         }
     }
 
@@ -43,7 +43,50 @@ class ProceduresController extends Controller
         } catch (Throwable $e) {
             return response([
                 "error" => [
-                    "message" => "Uncaught Error: Something went wrong or the record was not found"
+                    "message" => strval($e)
+                ]
+            ], 500);
+        }
+    }
+
+    public function update(ProceduresRequest $request, $recipe_id)
+    {
+        try {
+            $request->validated();
+            $req = json_decode(json_encode($request->input()));
+
+            $user = JWTAuth::parseToken()->authenticate();
+            $recipe = Recipe::find($recipe_id)->get()->first();
+            if (!$recipe->user_id == $user->id) {
+                return response([
+                    "error" => [
+                        "message" => "The request id and the user did not match."
+                    ]
+                ], 404);
+            }
+
+            foreach ($req as $node) {
+                try {
+                    Procedures::find($node->id)
+                        ->update([
+                            "description" => $node->description,
+                            "duration" => $node->duration,
+                            "step_count" => $node->step_count
+                        ]);
+                } catch (Throwable $e) {
+                    return response([
+                        "error" => [
+                            "message" => strval($e)
+                        ]
+                    ], 500);
+                }
+            }
+
+            return ["success" => ["message" => "procedures updated"]];
+        } catch (Throwable $e) {
+            return response([
+                "error" => [
+                    "message" => strval($e)
                 ]
             ], 500);
         }
