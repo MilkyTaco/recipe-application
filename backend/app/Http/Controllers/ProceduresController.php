@@ -76,7 +76,7 @@ class ProceduresController extends Controller
                 } catch (Throwable $e) {
                     return response([
                         "error" => [
-                            "message" => strval($e)
+                            "message" => "something went wrong updating the id of {$node->id}, values after the said data are updated successfully."
                         ]
                     ], 500);
                 }
