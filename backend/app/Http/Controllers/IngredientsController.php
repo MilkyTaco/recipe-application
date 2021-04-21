@@ -10,19 +10,37 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class IngredientsController extends Controller
 {
-    public function store(IngredientsRequest $request)
+    public function store(IngredientsRequest $request, $recipe_id)
     {
         $request->validated();
-        if (empty($request->input()))
+        $req = json_decode(json_encode($request->input()));
+        $user = JWTAuth::parseToken()->authenticate();
+        if (empty($request->input())) {
             return response([
                 "error" => ["message" => "empty request"]
             ], 500);
+        }
 
         try {
-            Ingredients::insert($request->input());
+            $recipe = Recipe::where('id', '=', $recipe_id)
+                ->where('user_id', '=', $user->id)
+                ->get()
+                ->first();
+
+            if (empty($recipe)) {
+                return response([
+                    "error" => ["message" => "recipe not found"]
+                ], 500);
+            }
+
+            foreach ($req as $node) {
+                $node->recipe_id = intval($recipe_id);
+            }
+
+            Ingredients::insert(json_decode(json_encode($req), true));
             return ["success" => ["message" => "ingredients added"]];
         } catch (Throwable $e) {
-            return response(["error" => ["message" => $e]], 500);
+            return response(["error" => ["message" => strval($e)]], 500);
         }
     }
 
