@@ -10,16 +10,34 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProceduresController extends Controller
 {
-    public function store(ProceduresRequest $request)
+    public function store(ProceduresRequest $request, $recipe_id)
     {
         $request->validated();
-        if (empty($request->input()))
+        $req = json_decode(json_encode($request->input()));
+        $user = JWTAuth::parseToken()->authenticate();
+        if (empty($request->input())) {
             return response([
                 "error" => ["message" => "empty request"]
             ], 500);
+        }
 
         try {
-            Procedures::insert($request->input());
+            $recipe = Recipe::where('id', '=', $recipe_id)
+                ->where('user_id', '=', $user->id)
+                ->get()
+                ->first();
+
+            if (empty($recipe)) {
+                return response([
+                    "error" => ["message" => "recipe not found"]
+                ], 500);
+            }
+
+            foreach ($req as $node) {
+                $node->recipe_id = intval($recipe_id);
+            }
+
+            Procedures::insert(json_decode(json_encode($req), true));
             return ["success" => ["message" => "procedures added"]];
         } catch (Throwable $e) {
             return response(["error" => ["message" => strval($e)]], 500);
