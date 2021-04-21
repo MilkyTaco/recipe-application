@@ -12,6 +12,11 @@ class Procedures extends Model
     protected $hidden = [
         'recipe_id',
     ];
+    protected $fillable = [
+        'description',
+        'step_count',
+        'duration'
+    ];
 
     public function recipe()
     {
