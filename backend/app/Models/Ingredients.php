@@ -12,6 +12,11 @@ class Ingredients extends Model
     protected $hidden = [
         'recipe_id',
     ];
+    protected $fillable = [
+        'name',
+        'amount',
+        'measuring_instrument'
+    ];
     public function recipe()
     {
         return $this->belongsTo(Recipe::class, 'id', 'recipe_id');
