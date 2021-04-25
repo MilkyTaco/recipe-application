@@ -1,7 +1,7 @@
 # Recipe Application
 Simple MVC type application that serves as repository of recipes, build using [Laravel](https://laravel.com/) and [Vue JS](https://vuejs.org/) and containerized using [Docker](https://www.docker.com/) developed by the students of AI32.  
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://github.com/kharl112/recipe-application.git)]
 ## Prerequisites
 To run without encountering any problems make sure you have installed or configured the following technologies:
 
