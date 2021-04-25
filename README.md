@@ -13,7 +13,7 @@ Open up your terminal and run these commands.
 
 Clone repository:
 ```
-git clone https://
+git clone https://github.com/kharl112/recipe-application.git
 ```
 
 Navigate to the directory:
@@ -30,3 +30,31 @@ View running containers:
 ```
 docker ps
 ```
+
+### Configuring backend
+
+Entering backend container:
+```
+docker-compose exec backend bash
+```
+
+Copy env variables to .env file:
+```
+cp .env.example .env
+```
+
+Generate JWT key:
+```
+php artisan jwt:secret
+```
+
+Run migration scripts:
+```
+php artisan migrate:install
+php artisan migrate:fresh
+```
+
+
+
+
+
