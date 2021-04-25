@@ -20,9 +20,16 @@ Navigate to the directory:
 ```
 cd recipe-app
 ```
+Install dependencies in frontend:
+```
+cd frontend
+npm install
+npm update 
+```
 
 Running and building the application:
 ```
+cd ../
 docker-compose up
 ```
 
