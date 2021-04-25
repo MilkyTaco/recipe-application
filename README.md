@@ -27,6 +27,12 @@ npm install
 npm update 
 ```
 
+Install dependencies in backend:
+```
+cd ../backend
+composer install
+```
+
 Running and building the application:
 ```
 cd ../
