@@ -24,6 +24,7 @@ class RecipeRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id' => ['bail', 'required', 'integer'],
             'title' => ['bail', 'required', 'max:255'],
             'description' => ['max:255', 'nullable']
         ];

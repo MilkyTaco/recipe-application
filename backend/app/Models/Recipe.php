@@ -27,6 +27,6 @@ class Recipe extends Model
 
     public function categories()
     {
-        return $this->hasMany(Categories::class, 'recipe_id', 'id');
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
     }
 }

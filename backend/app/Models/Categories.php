@@ -9,6 +9,6 @@ class Categories extends Model
 {
     public function recipe()
     {
-        return $this->belongsToMany(Recipe::class, 'id', 'recipe_id');
+        return $this->hasMany(Recipe::class, 'id', 'category_id');
     }
 }
