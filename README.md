@@ -18,7 +18,7 @@ git clone https://github.com/kharl112/recipe-application.git
 
 Navigate to the directory:
 ```
-cd recipe-app
+cd recipe-application
 ```
 Install dependencies in frontend:
 ```
