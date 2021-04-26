@@ -65,6 +65,7 @@ Run migration scripts:
 ```
 php artisan migrate:install
 php artisan migrate:fresh
+php artisan db:seed --class=CategoriesSeeder
 ```
 
 
