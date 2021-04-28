@@ -21,9 +21,8 @@ export default {
 					"Authorization",
 					`Bearer  ${data.token}`
 				);
-				this.$route.push("/home");
+				this.$router.push("/home");
 			} catch (e) {
-				console.log(e);
 				return (this.errorMessage =
 					e.response.data.errors.message);
 			}
