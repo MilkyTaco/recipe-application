@@ -11,7 +11,6 @@ export default {
   <v-app>
     <v-main>
       <Login />
-	  <h1>Helloworld</h1>
     </v-main>
   </v-app>
 </template>
