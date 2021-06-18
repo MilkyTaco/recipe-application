@@ -29,7 +29,7 @@ const user = {
         commit("setLoading", { loading: false, type: "login" });
         return router.push("/home");
       } catch (error) {
-        const { message } = error.response.data || error;
+        const { message } = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "login" });
         return commit("message/setError", message, { root: true });
       }
