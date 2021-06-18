@@ -5,7 +5,7 @@ import user from "./content/user_store";
 
 Vue.use(Vuex);
 
-const store = new Vuex.store({
+const store = new Vuex.Store({
   message,
   user,
 });
