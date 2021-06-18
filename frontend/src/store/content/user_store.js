@@ -1,7 +1,7 @@
 import axios from "axios";
 import { router } from "../../main";
 
-export default user = {
+const user = {
   namespaced: true,
   state: () => ({
     profile: null,
@@ -35,3 +35,5 @@ export default user = {
     },
   },
 };
+
+export default user;
