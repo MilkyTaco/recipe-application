@@ -7,7 +7,9 @@ export default {
   <v-app>
     <v-main class="main-container">
       <v-container fluid class="sub-container pa-0 ma-0">
-        <router-view> </router-view>
+        <transition name="fade" mode="out-in">
+          <router-view> </router-view>
+        </transition>
       </v-container>
     </v-main>
   </v-app>
