@@ -1,5 +1,6 @@
 import axios from "axios";
 import { router } from "../../main";
+const { api } = require("../../../config");
 
 const user = {
   namespaced: true,
@@ -23,7 +24,7 @@ const user = {
       dispatch("message/defaultState", null, { root: true });
       commit("setLoading", { loading: true, type: "login" });
       try {
-        const { data } = await axios.post("/api/user/login", form);
+        const { data } = await axios.post(`${api}/user/login`, form);
         sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
         commit("setLoading", { loading: false, type: "login" });
         return router.push("/home");
