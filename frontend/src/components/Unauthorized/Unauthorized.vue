@@ -21,8 +21,8 @@ export default {
               <v-col cols="5">
                 <v-img
                   src="../../assets/images/logo.png"
-                  max-width="200"
-                  class="mb-n10 mb-md-n16 mb-sm-n14 rounded-circle"
+                  max-width="150"
+                  class="mb-n10 rounded-circle"
                   elevation="5"
                 />
               </v-col>

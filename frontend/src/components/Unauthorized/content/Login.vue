@@ -20,41 +20,49 @@ export default {
 };
 </script>
 <template>
-  <v-container>
-    <v-row justify="center" align-content="center">
-      <v-col align-self="center" sm="4">
-        <v-card elevate="2" class="card-body">
-          <v-form @submit="handleSubmit">
-            <v-row justify-content="stretch" align-content="center">
-              <v-col align-self="stretch" cols="12">
-                <h2>
-                  Recipe Application
-                </h2>
+  <v-container fluid class="mt-10">
+    <v-row justify="center" align="center">
+      <v-col col="10" sm="6" md="3">
+        <v-card outlined class="ma-2 pa-5 pt-7 pb-7" dark>
+          <v-form ref="form" @submit="handleSubmit">
+            <v-row justify="center" align="start">
+              <v-col cols="12">
+                <v-row justify="center">
+                  <v-card-title class="warning--text text-center">
+                    LOGIN
+                  </v-card-title>
+                </v-row>
               </v-col>
-              <v-col align-self="center" cols="12">
-                <v-subheader>
-                  Login with your account.
-                </v-subheader>
-              </v-col>
-              <v-col cols="12" tag="col">
+              <v-col cols="12" class="pa-1">
                 <v-text-field
-                  class="input-text"
+                  rounded
+                  outlined
+                  append-icon="mdi-email"
                   v-model="form.email"
                   label="email"
+                  type="email"
                 />
               </v-col>
-              <v-col cols="12" tag="col">
+              <v-col cols="12" class="pa-1">
                 <v-text-field
-                  class="input-text"
+                  rounded
+                  outlined
+                  append-icon="mdi-lock"
                   v-model="form.password"
                   label="password"
                   type="password"
                 />
               </v-col>
               <v-col cols="12" align-self="stretch">
-                <v-btn class="login-button" type="submit" color="error"
-                  >Login</v-btn
+                <v-btn
+                  type="submit"
+                  rounded
+                  block
+                  elevation="0"
+                  color="warning"
                 >
+                  Login
+                </v-btn>
               </v-col>
               <v-col align-self="center" v-if="getLoginError">
                 <p>{{ getLoginError }}</p>
@@ -66,29 +74,3 @@ export default {
     </v-row>
   </v-container>
 </template>
-<style lang="scss" scoped>
-.login-button {
-  width: 100%;
-}
-.card-body {
-  padding: 20px 15px 10px 15px;
-}
-h2 {
-  text-align: center;
-  margin: 0px;
-  color: rgba(0, 0, 0, 0.8);
-}
-.input-text {
-  margin: 0px;
-  font-size: 12px;
-}
-p {
-  margin: 0px;
-  padding: 2px;
-  font-weight: bold;
-  font-size: 12px;
-  color: white;
-  background-color: red;
-  text-align: center;
-}
-</style>
