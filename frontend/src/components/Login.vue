@@ -46,7 +46,7 @@ export default {
 							>
 								<h2>
 									Recipe
-									App
+									Application
 								</h2>
 							</v-col>
 							<v-col
