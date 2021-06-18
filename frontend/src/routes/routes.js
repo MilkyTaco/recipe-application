@@ -1,8 +1,18 @@
 import Home from "../components/Home/Home";
-import Login from "../components/Unauthorized/Login";
+import Unauthorized from "../components/Unauthorized/Unauthorized";
+import Login from "../components/Unauthorized/content/Login";
 
 export const routes = [
-  { path: "/", component: Login },
+  {
+    path: "/",
+    component: Unauthorized,
+    children: [
+      {
+        path: "/login",
+        component: Login,
+      },
+    ],
+  },
   {
     path: "/home",
     component: Home,
