@@ -13,7 +13,7 @@ export default {
               <v-col cols="3">
                 <router-link
                   to="/login"
-                  class="white--text text-decoration-none"
+                  class="white--text text-decoration-none font-weight-bold"
                 >
                   LOGIN
                 </router-link>
@@ -29,7 +29,7 @@ export default {
               <v-col cols="3">
                 <router-link
                   to="/signup"
-                  class="white--text text-decoration-none"
+                  class="white--text text-decoration-none font-weight-bold"
                 >
                   SIGNUP
                 </router-link>

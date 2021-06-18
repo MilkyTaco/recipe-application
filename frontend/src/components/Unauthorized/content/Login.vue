@@ -28,7 +28,7 @@ export default {
   <v-container fluid class="mt-10">
     <v-row justify="center" align="center">
       <v-col col="10" sm="6" md="3">
-        <v-card class="ma-2 pa-5 pt-7 pb-7 rounded-xl" dark>
+        <v-card dark class="ma-2 pa-5 pt-7 pb-7 rounded-xl">
           <v-form ref="form" @submit="handleSubmit">
             <v-row justify="center" align="start">
               <v-col cols="12">
@@ -42,7 +42,9 @@ export default {
                 <v-text-field
                   rounded
                   outlined
+                  autofocus
                   :rules="rules"
+                  :readonly="getLoginLoading"
                   append-icon="mdi-email"
                   v-model="form.email"
                   label="email"
@@ -54,6 +56,7 @@ export default {
                   rounded
                   outlined
                   :rules="rules"
+                  :readonly="getLoginLoading"
                   append-icon="mdi-lock"
                   v-model="form.password"
                   label="password"
@@ -68,6 +71,7 @@ export default {
               <v-col cols="12" class="pa-1">
                 <v-btn
                   type="submit"
+                  :loading="getLoginLoading"
                   rounded
                   block
                   elevation="0"
