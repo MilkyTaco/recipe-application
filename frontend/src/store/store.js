@@ -6,8 +6,10 @@ import user from "./content/user_store";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  message,
-  user,
+  modules: {
+    message,
+    user,
+  },
 });
 
 export default store;
