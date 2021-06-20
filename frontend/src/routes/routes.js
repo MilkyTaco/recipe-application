@@ -1,6 +1,7 @@
 import Home from "../components/Home/Home";
 import Unauthorized from "../components/Unauthorized/Unauthorized";
 import Login from "../components/Unauthorized/content/Login";
+import Register from "../components/Unauthorized/content/Register";
 import Landing from "../components/Landing/Landing";
 
 export const routes = [
@@ -12,6 +13,10 @@ export const routes = [
       {
         path: "login",
         component: Login,
+      },
+      {
+        path: "signup",
+        component: Register,
       },
     ],
   },
