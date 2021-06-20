@@ -8,6 +8,7 @@ const user = {
     profile: null,
     loading: {
       profile: false,
+      signup: false,
       login: false,
     },
   }),
@@ -31,6 +32,20 @@ const user = {
       } catch (error) {
         const { message } = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "login" });
+        return commit("message/setError", message, { root: true });
+      }
+    },
+    Signup: async ({ commit, dispatch }, form) => {
+      dispatch("message/defaultState", null, { root: true });
+      commit("setLoading", { loading: true, type: "signup" });
+      try {
+        const { data } = await axios.post(`${api}/user/signup`, form);
+        sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
+        commit("setLoading", { loading: false, type: "signup" });
+        return router.push("/home");
+      } catch (error) {
+        const { message } = error.response.data.errors || error;
+        commit("setLoading", { loading: false, type: "signup" });
         return commit("message/setError", message, { root: true });
       }
     },
