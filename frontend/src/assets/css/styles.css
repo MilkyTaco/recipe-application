@@ -11,7 +11,7 @@
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("../images/main_background.png");
+  background-image: url("../images/burger_bg.png");
 }
 
 .sub-container {
@@ -27,16 +27,20 @@
   padding: 0;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.534);
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 100ms;
+  transition-duration: 50ms;
   transition-property: opacity;
   transition-timing-function: ease;
 }
 .fade-enter,
 .fade-leave-active {
-  opacity: 0;
+  opacity: 20%;
 }
