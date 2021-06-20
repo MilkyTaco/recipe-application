@@ -79,7 +79,7 @@ export default {
                 />
               </v-col>
               <v-col v-if="getSignupError" class="pa-1">
-                <v-alert class="alert pt-2 pb-2" type="error">
+                <v-alert class="alert pt-1 pb-1 caption" type="error">
                   {{ getSignupError }}
                 </v-alert>
               </v-col>
