@@ -41,7 +41,7 @@ export default {
         </v-container>
       </v-app-bar>
       <v-container fluid class="pa-0 ma-0 mt-10">
-        <transition name="slide" mode="out-in">
+        <transition name="slide">
           <router-view></router-view>
         </transition>
       </v-container>
