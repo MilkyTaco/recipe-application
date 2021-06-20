@@ -46,9 +46,13 @@ const user = {
       } catch (error) {
         const message = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "signup" });
-        return commit("message/setError", JSON.stringify(message), {
-          root: true,
-        });
+        return commit(
+          "message/setError",
+          JSON.stringify(message).replace(/\W/gi, " "),
+          {
+            root: true,
+          }
+        );
       }
     },
   },
