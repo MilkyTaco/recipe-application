@@ -13,7 +13,7 @@ export default {
               <v-row justify="space-between" align="center">
                 <v-col cols="3">
                   <router-link
-                    to="/login"
+                    to="/unauth/login"
                     class="white--text text-decoration-none font-weight-bold"
                   >
                     LOGIN
@@ -29,7 +29,7 @@ export default {
                 </v-col>
                 <v-col cols="3">
                   <router-link
-                    to="/signup"
+                    to="/unauth/signup"
                     class="white--text text-decoration-none font-weight-bold"
                   >
                     SIGNUP
@@ -41,9 +41,7 @@ export default {
         </v-container>
       </v-app-bar>
       <v-container fluid class="pa-0 ma-0 mt-10">
-        <transition name="slide">
-          <router-view></router-view>
-        </transition>
+        <router-view></router-view>
       </v-container>
     </v-container>
   </v-container>
