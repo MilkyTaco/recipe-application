@@ -1,4 +1,6 @@
 import Home from "../components/Home/Home";
+import Community from "../components/Home/content/Community";
+
 import Unauthorized from "../components/Unauthorized/Unauthorized";
 import Login from "../components/Unauthorized/content/Login";
 import Register from "../components/Unauthorized/content/Register";
@@ -40,5 +42,11 @@ export const routes = [
         ? next()
         : next({ path: "/login" });
     },
+    children: [
+      {
+        path: "community",
+        component: Community,
+      },
+    ],
   },
 ];
