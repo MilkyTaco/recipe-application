@@ -46,7 +46,7 @@ const recipe = {
     RecipeInfo: async ({ commit }) => {
       commit("setLoading", { loading: true, type: "recipe" });
       try {
-        const { data } = await axios.get(`${api}/recipe/view/${id}`, {
+        const { data } = await axios.get(`${api}/recipe/view/id=${id}`, {
           headers: { Authorization: sessionStorage.getItem("Authorization") },
         });
         commit("setLoading", { loading: false, type: "recipe" });
