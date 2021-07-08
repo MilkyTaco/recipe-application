@@ -22,7 +22,9 @@ const recipe = {
       if (!state.recipes[0])
         commit("setLoading", { loading: true, type: "recipes" });
       try {
-        const { data } = await axios.get(`${api}/recipe/show/all`);
+        const { data } = await axios.get(`${api}/recipe/show/all`, {
+          headers: { Authorization: sessionStorage.getItem("Authorization") },
+        });
         commit("setLoading", { loading: false, type: "recipes" });
         return commit("setAllRecipes", data);
       } catch (error) {
