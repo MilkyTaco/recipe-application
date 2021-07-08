@@ -1,6 +1,11 @@
 <script>
 export default {
   name: "Home",
+  methods: {
+    isSelectedRoute(text) {
+      return text === this.$route.fullPath.split("/")[2];
+    },
+  },
 };
 </script>
 <template>
@@ -17,7 +22,11 @@ export default {
                     class="white--text text-decoration-none"
                   >
                     <span
-                      class="body-2 hidden-sm-and-down font-weight-bold text-uppercase"
+                      :class="
+                        `body-2 hidden-sm-and-down font-weight-bold text-uppercase ${
+                          isSelectedRoute('community') ? 'warning--text' : ''
+                        }`
+                      "
                     >
                       Community
                     </span>
@@ -25,7 +34,9 @@ export default {
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
                           class="hidden-md-and-up"
-                          color="white"
+                          :color="
+                            isSelectedRoute('community') ? 'warning' : 'white'
+                          "
                           medium
                           v-bind="attrs"
                           v-on="on"
@@ -43,7 +54,11 @@ export default {
                     class="white--text text-decoration-none"
                   >
                     <span
-                      class="body-2 hidden-sm-and-down font-weight-bold text-uppercase"
+                      :class="
+                        `body-2 hidden-sm-and-down font-weight-bold text-uppercase ${
+                          isSelectedRoute('users') ? 'warning--text' : ''
+                        }`
+                      "
                     >
                       Users
                     </span>
@@ -51,7 +66,9 @@ export default {
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
                           class="hidden-md-and-up"
-                          color="white"
+                          :color="
+                            isSelectedRoute('users') ? 'warning' : 'white'
+                          "
                           medium
                           v-bind="attrs"
                           v-on="on"
@@ -77,7 +94,11 @@ export default {
                     class="white--text text-decoration-none"
                   >
                     <span
-                      class="body-2 hidden-sm-and-down font-weight-bold text-uppercase"
+                      :class="
+                        `body-2 hidden-sm-and-down font-weight-bold text-uppercase ${
+                          isSelectedRoute('categories') ? 'warning--text' : ''
+                        }`
+                      "
                     >
                       Categories
                     </span>
@@ -85,7 +106,9 @@ export default {
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
                           class="hidden-md-and-up"
-                          color="white"
+                          :color="
+                            isSelectedRoute('categories') ? 'warning' : 'white'
+                          "
                           medium
                           v-bind="attrs"
                           v-on="on"
@@ -100,10 +123,14 @@ export default {
                 <v-col cols="2">
                   <router-link
                     to="/home/recipes"
-                    class="white--text text-decoration-none font-weight-bold"
+                    class="white--text text-decoration-none"
                   >
                     <span
-                      class="body-2 hidden-sm-and-down font-weight-bold text-uppercase"
+                      :class="
+                        `body-2 hidden-sm-and-down font-weight-bold text-uppercase ${
+                          isSelectedRoute('recipes') ? 'warning--text' : ''
+                        }`
+                      "
                     >
                       Recipes
                     </span>
@@ -111,7 +138,9 @@ export default {
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
                           class="hidden-md-and-up"
-                          color="white"
+                          :color="
+                            isSelectedRoute('recipes') ? 'warning' : 'white'
+                          "
                           medium
                           v-bind="attrs"
                           v-on="on"
