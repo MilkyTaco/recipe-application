@@ -19,7 +19,7 @@ const recipe = {
   mutations: {
     setAllRecipes: (state, recipes) => (state.recipes = [...recipes]),
     setRecipe: (state, recipe) => (state.recipe = { ...recipe }),
-    setLoading: (state, { type, loading }) => (state[type].loading = loading),
+    setLoading: (state, { type, loading }) => (state.loading[type] = loading),
   },
   actions: {
     AllRecipes: async ({ commit, state }) => {
@@ -43,7 +43,7 @@ const recipe = {
         );
       }
     },
-    RecipeInfo: async ({ commit }) => {
+    RecipeInfo: async ({ commit }, id) => {
       commit("setLoading", { loading: true, type: "recipe" });
       try {
         const { data } = await axios.get(`${api}/recipe/view/id=${id}`, {
