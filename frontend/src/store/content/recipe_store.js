@@ -2,7 +2,7 @@ import axios from "axios";
 const { api } = require("../../../config");
 
 const recipe = {
-  usespaced: true,
+  namespaced: true,
   state: () => ({
     recipes: [],
     loading: {
