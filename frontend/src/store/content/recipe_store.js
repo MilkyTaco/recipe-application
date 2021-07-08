@@ -1,3 +1,6 @@
+import axios from "axios";
+const { api } = require("../../../config");
+
 const recipe = {
   usespaced: true,
   state: () => ({
@@ -15,9 +18,9 @@ const recipe = {
     setLoading: (state, { type, loading }) => (state[type].loading = loading),
   },
   actions: {
-    AllRecipes: ({ commit, state }) => {
+    AllRecipes: async ({ commit, state }) => {
       if (!state.recipes[0])
-        commit("setLoading", {loading: true , type: "recipes"});
+        commit("setLoading", { loading: true, type: "recipes" });
       try {
         const { data } = await axios.get(`${api}/recipe/show/all`);
         commit("setLoading", { loading: false, type: "recipes" });
