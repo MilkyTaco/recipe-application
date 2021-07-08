@@ -1,5 +1,6 @@
 import Home from "../components/Home/Home";
 import Community from "../components/Home/content/Community";
+import Selected from "../components/Home/content/Selected";
 
 import Unauthorized from "../components/Unauthorized/Unauthorized";
 import Login from "../components/Unauthorized/content/Login";
@@ -50,6 +51,10 @@ export const routes = [
       {
         path: "community",
         component: Community,
+      },
+      {
+        path: "selected/:id",
+        component: Selected,
       },
     ],
   },
