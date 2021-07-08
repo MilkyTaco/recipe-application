@@ -13,6 +13,10 @@ export const routes = [
   {
     path: "/unauth",
     component: Unauthorized,
+    beforeEnter: (to, from, next) => {
+      sessionStorage.clear();
+      next();
+    },
     children: [
       {
         path: "login",
@@ -40,7 +44,7 @@ export const routes = [
     beforeEnter: (to, from, next) => {
       return sessionStorage.getItem("Authorization")
         ? next()
-        : next({ path: "/login" });
+        : next({ path: "/unauth/login" });
     },
     children: [
       {
