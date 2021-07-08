@@ -28,7 +28,7 @@ const user = {
         const { data } = await axios.post(`${api}/user/login`, form);
         sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
         commit("setLoading", { loading: false, type: "login" });
-        return router.push("/home");
+        return router.push("/home/community");
       } catch (error) {
         const { message } = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "login" });
@@ -42,7 +42,7 @@ const user = {
         const { data } = await axios.post(`${api}/user/signup`, form);
         sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
         commit("setLoading", { loading: false, type: "signup" });
-        return router.push("/home");
+        return router.push("/home/community");
       } catch (error) {
         const message = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "signup" });
