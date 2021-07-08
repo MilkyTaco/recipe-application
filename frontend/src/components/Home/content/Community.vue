@@ -98,7 +98,7 @@ export default {
 
           <v-card-actions>
             <v-btn color="warning" text>
-              Save Recipe
+              View more
             </v-btn>
           </v-card-actions>
         </v-card>
