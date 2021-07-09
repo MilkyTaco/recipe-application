@@ -55,11 +55,13 @@ const user = {
         );
       }
     },
-    Profile: async ({ commit }) => {
+    Profile: async ({ commit, dispatch }) => {
       dispatch("message/defaultState", null, { root: true });
       commit("setLoading", { loading: true, type: "profile" });
       try {
-        const { data } = await axios.get(`${api}/user/profile`);
+        const { data } = await axios.get(`${api}/user/profile`, {
+          headers: { Authorization: sessionStorage.getItem("Authorization") },
+        });
         commit("setLoading", { loading: false, type: "profile" });
         commit("setProfile", data);
       } catch (error) {
