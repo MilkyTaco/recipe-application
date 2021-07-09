@@ -5,8 +5,14 @@ export default {
     getRecipeLoading() {
       return this.$store.getters["recipe/getLoading"];
     },
+
     recipe() {
       return this.$store.getters["recipe/getRecipe"];
+    },
+  },
+  methods: {
+    isOwned(user_id) {
+      this.$store.getters["user/getProfile"].id === user_id;
     },
   },
   created() {
@@ -27,15 +33,15 @@ export default {
             <v-col cols="4" sm="4" md="4">
               <v-row justify="start">
                 <v-col cols="12" align="start">
-                  <span class="text-capitalize">
-                    {{ `Name: ${recipe.title}` }}
+                  <span class="text-capitalize text-md-h5 text-sm-h6">
+                    {{ recipe.title }}
                   </span>
                 </v-col>
                 <v-col cols="12">
                   <span>Description:</span>
                 </v-col>
-                <v-col cols="12" class="pt-1">
-                  <span>{{ recipe.description }}</span>
+                <v-col cols="12" class="pt-0">
+                  <span class="secondary--text">{{ recipe.description }}</span>
                 </v-col>
               </v-row>
             </v-col>
@@ -97,7 +103,7 @@ export default {
               </v-row>
             </v-col>
           </v-row>
-          <v-row justify="center">
+          <v-row justify="center" v-if="isOwned(recipe.users.id)">
             <v-btn
               color="warning"
               class="mt-10"
