@@ -42,10 +42,13 @@ export const routes = [
   {
     path: "/home",
     component: Home,
-    beforeEnter: (to, from, next) => {
-      return sessionStorage.getItem("Authorization")
-        ? next()
-        : next({ path: "/unauth/login" });
+    beforeEnter: async (to, from, next) => {
+      if (sessionStorage.getItem("Authorization")) {
+        await store.dispatch("user/Profile");
+        if (store.getters["user/getProfile"]) return next();
+        return next({ path: "/unauth/login" });
+      }
+      return next({ path: "/unauth/login" });
     },
     children: [
       {
