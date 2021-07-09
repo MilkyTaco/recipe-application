@@ -9,6 +9,7 @@ const recipe = {
     loading: {
       recipes: false,
       recipe: false,
+      delete: false,
     },
   }),
   getters: {
@@ -54,6 +55,25 @@ const recipe = {
       } catch (error) {
         const message = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "recipe" });
+        return commit(
+          "message/setError",
+          JSON.stringify(message).replace(/\W/gi, " "),
+          {
+            root: true,
+          }
+        );
+      }
+    },
+    Delete: async ({ commit }, id) => {
+      commit("setLoading", { loading: true, type: "delete" });
+      try {
+        await axios.post(`${api}/recipe/delete/id=${id}`, {
+          headers: { Authorization: sessionStorage.getItem("Authorization") },
+        });
+        return commit("setLoading", { loading: false, type: "delete" });
+      } catch (error) {
+        const message = error.response.data.errors || error;
+        commit("setLoading", { loading: false, type: "delete" });
         return commit(
           "message/setError",
           JSON.stringify(message).replace(/\W/gi, " "),
