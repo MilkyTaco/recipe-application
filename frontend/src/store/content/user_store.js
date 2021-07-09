@@ -55,6 +55,26 @@ const user = {
         );
       }
     },
+    Profile: async ({ commit }) => {
+      dispatch("message/defaultState", null, { root: true });
+      commit("setLoading", { loading: true, type: "profile" });
+      try {
+        const { data } = await axios.get(`${api}/user/profile`);
+        commit("setLoading", { loading: false, type: "profile" });
+        commit("setProfile", data);
+      } catch (error) {
+        const message = error.response.data.errors || error;
+        commit("setLoading", { loading: false, type: "profile" });
+        sessionStorage.clear();
+        return commit(
+          "message/setError",
+          JSON.stringify(message).replace(/\W/gi, " "),
+          {
+            root: true,
+          }
+        );
+      }
+    },
   },
 };
 
