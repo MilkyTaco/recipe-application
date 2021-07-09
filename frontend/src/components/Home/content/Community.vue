@@ -17,6 +17,9 @@ export default {
       const new_time = new Date(time);
       return `${new_time.getDate()}-${new_time.getMonth()}-${new_time.getFullYear()}`;
     },
+    viewRecipe(recipe_id) {
+      return this.$router.push(`/home/selected/${recipe_id}`);
+    },
   },
   created() {
     this.$store.dispatch("recipe/AllRecipes");
@@ -97,7 +100,7 @@ export default {
           <v-divider class="mx-4"></v-divider>
 
           <v-card-actions>
-            <v-btn color="warning" text>
+            <v-btn color="warning" text @click="viewRecipe(recipe.id)">
               View more
             </v-btn>
           </v-card-actions>
