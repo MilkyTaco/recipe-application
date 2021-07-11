@@ -32,7 +32,10 @@ export default {
               <v-form ref="form">
                 <v-row justify="start">
                   <v-col cols="12" align="start">
-                    <span>Account Settings </span>
+                    <span class="body-1 primary--text">
+                      <v-icon color="primary">mdi-information</v-icon>
+                      Account Information
+                    </span>
                   </v-col>
                   <v-col md="4" sm="5" align="start">
                     <v-text-field
@@ -41,7 +44,7 @@ export default {
                       v-model="form.id"
                       label="ID"
                       :rules="rules"
-                      disabled
+                      readonly
                     />
                   </v-col>
                   <v-col md="8" sm="7" align="start">
@@ -51,6 +54,7 @@ export default {
                       v-model="form.name"
                       label="Name"
                       :rules="rules"
+                      readonly
                     />
                   </v-col>
                   <v-col cols="12" class="pt-0">
@@ -60,13 +64,8 @@ export default {
                       v-model="form.email"
                       label="Email"
                       :rules="rules"
+                      readonly
                     />
-                  </v-col>
-                  <v-col cols="12" class="pt-0">
-                    <v-btn color="primary" max-width="200" min-width="120">
-                      <v-icon left> mdi-content-save </v-icon>
-                      Save
-                    </v-btn>
                   </v-col>
                 </v-row>
               </v-form>
