@@ -50,24 +50,24 @@ export default {
                 </v-col>
                 <v-col cols="2">
                   <router-link
-                    to="/home/users"
+                    to="/home/account"
                     class="white--text text-decoration-none"
                   >
                     <span
                       :class="
                         `body-2 hidden-sm-and-down font-weight-bold text-uppercase ${
-                          isSelectedRoute('users') ? 'warning--text' : ''
+                          isSelectedRoute('account') ? 'warning--text' : ''
                         }`
                       "
                     >
-                      Users
+                      Account
                     </span>
                     <v-tooltip class="hidden-md-and-up" bottom>
                       <template v-slot:activator="{ on, attrs }">
                         <v-icon
                           class="hidden-md-and-up"
                           :color="
-                            isSelectedRoute('users') ? 'warning' : 'white'
+                            isSelectedRoute('account') ? 'warning' : 'white'
                           "
                           medium
                           v-bind="attrs"
@@ -76,7 +76,7 @@ export default {
                           mdi-account
                         </v-icon>
                       </template>
-                      <span>Users</span>
+                      <span>Account</span>
                     </v-tooltip>
                   </router-link>
                 </v-col>
