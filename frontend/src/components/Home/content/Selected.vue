@@ -5,7 +5,6 @@ export default {
     getRecipeLoading() {
       return this.$store.getters["recipe/getLoading"];
     },
-
     recipe() {
       return this.$store.getters["recipe/getRecipe"];
     },
@@ -13,6 +12,10 @@ export default {
   methods: {
     isOwned(user_id) {
       this.$store.getters["user/getProfile"].id === user_id;
+    },
+    fixTime(time) {
+      const new_time = new Date(time);
+      return `${new_time.getDate()}-${new_time.getMonth()}-${new_time.getFullYear()}`;
     },
   },
   created() {
@@ -37,8 +40,18 @@ export default {
                     {{ recipe.title }}
                   </span>
                 </v-col>
-                <v-col cols="12">
-                  <span>Description:</span>
+                <v-col cols="12" class="pt-0 pb-0 body-2 font-weight-bold">
+                  <v-chip
+                    min-width="100"
+                    small
+                    color="primary"
+                    class="text-capitalize"
+                  >
+                    {{ recipe.categories.name }}
+                  </v-chip>
+                </v-col>
+                <v-col cols="12" class="pb-2">
+                  <v-divider />
                 </v-col>
                 <v-col cols="12" class="pt-0">
                   <span class="secondary--text">{{ recipe.description }}</span>
@@ -49,7 +62,7 @@ export default {
               <v-row justify="start">
                 <v-col cols="12" align="start">
                   <span v-if="recipe.ingredients[0]" class="text-capitalize">
-                    Ingredients:
+                    Ingredients
                   </span>
                   <span
                     v-else
@@ -57,6 +70,14 @@ export default {
                   >
                     No Ingredients listed
                   </span>
+                  <v-btn
+                    class="ml-1"
+                    icon
+                    color="primary"
+                    v-if="isOwned(recipe.users.id)"
+                  >
+                    <v-icon>mdi-plus </v-icon>
+                  </v-btn>
                 </v-col>
                 <v-col cols="12" class="pt-1">
                   <ul class="text-decoration-none">
@@ -81,7 +102,7 @@ export default {
               <v-row justify="start">
                 <v-col cols="12" align="start">
                   <span v-if="recipe.procedures[0]" class="text-capitalize">
-                    Procedures:
+                    Procedures
                   </span>
                   <span
                     v-else
@@ -89,6 +110,14 @@ export default {
                   >
                     No Procedures listed
                   </span>
+                  <v-btn
+                    class="ml-1"
+                    icon
+                    color="primary"
+                    v-if="isOwned(recipe.users.id)"
+                  >
+                    <v-icon>mdi-plus </v-icon>
+                  </v-btn>
                 </v-col>
                 <v-col cols="12" class="pt-1">
                   <li
@@ -102,19 +131,33 @@ export default {
                 </v-col>
               </v-row>
             </v-col>
+            <v-col cols="12" class="pb-1 pt-1">
+              <v-divider />
+            </v-col>
+            <v-col cols="12" class="pt-2 pb-0">
+              <span class="text-capitalize body-2 font-weight-bold">
+                {{ `created by @${recipe.users.name}` }}
+              </span>
+            </v-col>
+            <v-col cols="12" class="pt-0 pb-0 mt-n1">
+              <span class="caption">
+                {{ fixTime(recipe.created_at) }}
+              </span>
+            </v-col>
           </v-row>
-          <v-row justify="center" v-if="isOwned(recipe.users.id)">
-            <v-btn
-              color="warning"
-              class="mt-10"
-              width="50%"
-              max-width="200"
-              min-width="120"
-              rounded
-            >
-              <v-icon left> mdi-delete </v-icon>
-              Delete
-            </v-btn>
+          <v-row class="mt-3" justify="start" v-if="isOwned(recipe.users.id)">
+            <v-col cols="12" md="6">
+              <v-btn color="warning" block min-width="120">
+                <v-icon left> mdi-delete </v-icon>
+                Delete
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-btn color="primary" block min-width="120">
+                <v-icon left> mdi-content-save</v-icon>
+                Update
+              </v-btn>
+            </v-col>
           </v-row>
         </v-sheet>
       </v-col>
