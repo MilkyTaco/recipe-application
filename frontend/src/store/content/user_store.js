@@ -27,8 +27,9 @@ const user = {
       try {
         const { data } = await axios.post(`${api}/user/login`, form);
         sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
+        localStorage.setItem("token", data.token);
         commit("setLoading", { loading: false, type: "login" });
-        return router.push("/home/community");
+        return router.push("/home");
       } catch (error) {
         const { message } = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "login" });
@@ -42,32 +43,10 @@ const user = {
         const { data } = await axios.post(`${api}/user/signup`, form);
         sessionStorage.setItem("Authorization", `Bearer  ${data.token}`);
         commit("setLoading", { loading: false, type: "signup" });
-        return router.push("/home/community");
+        return router.push("/home");
       } catch (error) {
         const message = error.response.data.errors || error;
         commit("setLoading", { loading: false, type: "signup" });
-        return commit(
-          "message/setError",
-          JSON.stringify(message).replace(/\W/gi, " "),
-          {
-            root: true,
-          }
-        );
-      }
-    },
-    Profile: async ({ commit, dispatch }) => {
-      dispatch("message/defaultState", null, { root: true });
-      commit("setLoading", { loading: true, type: "profile" });
-      try {
-        const { data } = await axios.get(`${api}/user/profile`, {
-          headers: { Authorization: sessionStorage.getItem("Authorization") },
-        });
-        commit("setLoading", { loading: false, type: "profile" });
-        commit("setProfile", data);
-      } catch (error) {
-        const message = error.response.data.errors || error;
-        commit("setLoading", { loading: false, type: "profile" });
-        sessionStorage.clear();
         return commit(
           "message/setError",
           JSON.stringify(message).replace(/\W/gi, " "),

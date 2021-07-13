@@ -1,7 +1,7 @@
 import Home from "../components/Home/Home";
-import Community from "../components/Home/content/Community";
-import Selected from "../components/Home/content/Selected";
-import Account from "../components/Home/content/Account";
+import Menu from "../components/Home/Menu";
+import AddRecipe from "../components/Home/AddRecipe";
+import ListRecipe from "../components/Home/ListRecipe";
 
 import Unauthorized from "../components/Unauthorized/Unauthorized";
 import Login from "../components/Unauthorized/content/Login";
@@ -15,10 +15,6 @@ export const routes = [
   {
     path: "/unauth",
     component: Unauthorized,
-    beforeEnter: (to, from, next) => {
-      sessionStorage.clear();
-      next();
-    },
     children: [
       {
         path: "login",
@@ -43,27 +39,33 @@ export const routes = [
   {
     path: "/home",
     component: Home,
-    beforeEnter: async (to, from, next) => {
-      if (sessionStorage.getItem("Authorization")) {
-        await store.dispatch("user/Profile");
-        if (store.getters["user/getProfile"]) return next();
-        return next({ path: "/unauth/login" });
-      }
-      return next({ path: "/unauth/login" });
-    },
     children: [
       {
-        path: "community",
-        component: Community,
+        path: '/menu',
+        name: 'menu',
+        components: {
+          menu: Menu
+        }
       },
       {
-        path: "account",
-        component: Account,
+        path: '/addrecipe',
+        name: 'addrecipe',
+        components: {
+          addrecipe: AddRecipe
+        }
       },
       {
-        path: "selected/:id",
-        component: Selected,
+        path: '/listrecipe',
+        name: 'listrecipe',
+        components: {
+          listrecipe: ListRecipe
+        }
       },
     ],
+    beforeEnter: (to, from, next) => {
+      return sessionStorage.getItem("Authorization")
+        ? next()
+        : next({ path: "/login" });
+    },
   },
 ];

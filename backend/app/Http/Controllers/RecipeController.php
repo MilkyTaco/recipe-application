@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeRequest;
+use App\Models\Categories;
 use App\Models\Ingredients;
 use App\Models\Procedures;
 use App\Models\Recipe;
@@ -31,25 +32,12 @@ class RecipeController extends Controller
         }
     }
 
-    public function view($id)
-    {
-        try {
-            return Recipe::where('id', '=', $id)
-                ->with('users', 'categories', 'procedures', 'ingredients')
-                ->get()
-                ->first()
-                ->makeHidden(['user_id', 'updated_at']);
-        } catch (Throwable $e) {
-            return response(["error" => ["message" => $e]], 500);
-        }
-    }
-
     public function show()
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
             return Recipe::where('user_id', '=', $user->id)
-                ->with('users', 'categories', 'procedures', 'ingredients')
+                ->with('users','categories', 'procedures', 'ingredients' )
                 ->get()
                 ->makeHidden(['user_id', 'updated_at']);
         } catch (Throwable $e) {
@@ -113,5 +101,9 @@ class RecipeController extends Controller
         } catch (Throwable $e) {
             return response(["error" => ["message" => $e]], 500);
         }
+    }
+
+    public function category(){
+        return response()->json(Categories::get(), 200);
     }
 }

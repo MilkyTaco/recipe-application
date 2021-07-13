@@ -19,6 +19,8 @@ class CreateRecipesTable extends Migration
             $table->foreignId('category_id')->constrained('categories');
             $table->string('title');
             $table->string('description');
+            $table->string('image');
+            $table->longText('content');
             $table->date('created_at');
             $table->date('updated_at');
         });

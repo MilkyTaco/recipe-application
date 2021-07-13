@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IngredientsController;
+use App\Http\Controllers\NewRecipeController;
 use App\Http\Controllers\ProceduresController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
@@ -27,7 +28,6 @@ Route::middleware("jwt.verify")->prefix('recipe')->group(function () {
     Route::post('create', [RecipeController::class, "store"]);
     Route::delete('delete/id={id}', [RecipeController::class, "destroy"]);
     Route::put('update', [RecipeController::class, "update"]);
-    Route::get('view/id={id}', [RecipeController::class, "view"]);
     Route::get('show', [RecipeController::class, "show"]);
     Route::get('show/all', [RecipeController::class, "showAll"]);
 });
@@ -43,3 +43,10 @@ Route::middleware("jwt.verify")->prefix('ingredients')->group(function () {
     Route::delete('delete/id={id}&recipe_id={recipe_id}', [IngredientsController::class, "destroy"]);
     Route::put('update/recipe_id={recipe_id}', [IngredientsController::class, "update"]);
 });
+
+Route::middleware("jwt.verify")->group(function () {
+    Route::apiResource('recipe', NewRecipeController::class);
+    Route::post('uploadFeaturedImage', [NewRecipeController::class, 'uploadFeaturedImage']);
+});
+
+Route::get('categories', [RecipeController::class, 'category']);

@@ -2,13 +2,7 @@
 export default {
   name: "Landing",
   mounted() {
-    setTimeout(
-      () =>
-        !sessionStorage.getItem("Authorization")
-          ? this.$router.replace("/unauth/login")
-          : this.$router.replace("/home/community"),
-      3000
-    );
+    setTimeout(() => this.$router.replace("/unauth/login"), 3000);
   },
 };
 </script>
